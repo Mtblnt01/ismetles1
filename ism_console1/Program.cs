@@ -23,6 +23,8 @@ namespace ism_console1
             Console.Write("Kérek egy szintet (1-5): ");
             string levelStr = Console.ReadLine();
 
+            Console.WriteLine("Szia");
+
             try
             {
                 User user = service.CreateUser(name, password, email, regDate, levelStr);
