@@ -9,7 +9,20 @@ namespace ism_console1
     {
         public static List<User> users = new List<User>();
         public static UserService userService = new UserService(users);
+
         public static char separator = Config.CsvSeparator;
+
+        static void ShowMenu()
+        {
+            Console.WriteLine("\n--- USER MENU ---");
+            Console.WriteLine("1: Új felhasználó létrehozása");
+            Console.WriteLine("2: Felhasználó keresése index alapján");
+            Console.WriteLine("3: Felhasználó nevének frissítése index alapján");
+            Console.WriteLine("4: Felhasználó törlése index alapján");
+            Console.WriteLine("5: Felhasználók listázása");
+            Console.WriteLine("6: Felhasználók fájlba írása");
+            Console.WriteLine("0: Kilépés");
+        }
 
         public static void CreateUser(UserService service) {
             Console.Write("Kérek egy nevet: ");
@@ -23,8 +36,6 @@ namespace ism_console1
             Console.Write("Kérek egy szintet (1-5): ");
             string levelStr = Console.ReadLine();
 
-            Console.WriteLine("Szia");
-
             try
             {
                 User user = service.CreateUser(name, password, email, regDate, levelStr);
@@ -36,7 +47,16 @@ namespace ism_console1
             }
         }
 
-        static void Main(string[] args)
+        public static void ReadUser(UserService service)
+        {
+            Console.WriteLine("Kérem az user id-jét: ");
+            int id = int.Parse(Console.ReadLine());
+            User user = service.GetUserById(id);
+            Console.WriteLine(user != null ? user : "Nincs ilyen user!");
+        }
+
+
+            static void Main(string[] args)
         {
             //UI metódusok
 
@@ -57,10 +77,23 @@ namespace ism_console1
             }
             */
 
+            while (true)
+            {
+                ShowMenu();
+                Console.Write("Kérem a menüpont számát: ");
+                string choice = Console.ReadKey().KeyChar.ToString();
+                switch (choice)
+                {
+                    case "1": CreateUser(userService); break;
+                    case "2": ReadUser(userService); break;
+                    case "0": Console.WriteLine("Viszlát!"); Environment.Exit(0); break;
+                    default: Console.WriteLine("Nincs ilyen menüpont!"); break;
+                }
+            }
+
+
             CreateUser(userService);
-
-
-
+            Console.ReadKey();
 
             /*
             User user = new User();
@@ -90,10 +123,7 @@ namespace ism_console1
                 Console.WriteLine("Hiba: " + ex.Message);
                 Environment.Exit(1);
             }
-            */  
-            Console.ReadKey();
-            
-
+            */
         }
     }
 }

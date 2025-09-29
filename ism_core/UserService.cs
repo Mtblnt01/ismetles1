@@ -48,5 +48,10 @@ namespace ism_core
             return user;
         }
 
+        public User GetUserById(int id)
+        {
+            return users.FirstOrDefault(u => u.Id == id);
+        }
+
     }
 }
