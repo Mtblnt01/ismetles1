@@ -53,5 +53,33 @@ namespace ism_core
             return users.FirstOrDefault(u => u.Id == id);
         }
 
+        public bool UpdateUserName(int id, string newName)
+        {
+            User user = GetUserById(id);
+            if (user != null)
+            {
+                user.Name = newName;
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteUserById(int id)
+        {
+            User user = GetUserById(id);
+            if (user != null)
+            {
+                users.Remove(user);
+                return true;
+            }
+            return false;
+        }
+
+        public List<User> ListAllUsers()
+        {
+            return users;
+        }
+
+
     }
 }

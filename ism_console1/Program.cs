@@ -49,15 +49,50 @@ namespace ism_console1
 
         public static void ReadUser(UserService service)
         {
-            Console.WriteLine("Kérem az user id-jét: ");
+            Console.Write("Kérem az user id-jét: ");
             int id = int.Parse(Console.ReadLine());
             User user = service.GetUserById(id);
             Console.WriteLine(user != null ? user : "Nincs ilyen user!");
         }
 
-
-            static void Main(string[] args)
+        public static void UpdateUser(UserService service)
         {
+            Console.WriteLine("Módosítandó user Id: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Console.Write("Új név: ");
+            string newName = Console.ReadLine();
+            bool updated = service.UpdateUserName(id, newName);
+            Console.WriteLine(updated ? "Név frissítve." : "Nincs ilyen ID-jű felhasználó.");
+
+        }
+
+        public static void DeleteUser(UserService service)
+        {
+            Console.Write("Törlendő felhasználó Id: ");
+            int id = int.Parse(Console.ReadLine());
+
+            bool deleted = service.DeleteUserById(id);
+            Console.WriteLine(deleted ? "Felhasználó törölve." : "Nincs ilyen ID-jű felhasználó.");
+        }
+
+        public static void ListAllUsers(UserService service)
+        {
+            List<User> allUser = service.GetAllUsers();
+            if (allUser.Count == 0)
+            {
+                Console.WriteLine("Nincs felhasználó");
+                return;
+            }
+            foreach (User user in allUser)
+            {
+                Console.WriteLine(user);
+                Console.WriteLine("---------------");
+            }
+
+
+
+            static void Main(string[] args){
             //UI metódusok
 
 
@@ -82,17 +117,19 @@ namespace ism_console1
                 ShowMenu();
                 Console.Write("Kérem a menüpont számát: ");
                 string choice = Console.ReadKey().KeyChar.ToString();
+                Console.WriteLine("\n");
                 switch (choice)
                 {
                     case "1": CreateUser(userService); break;
                     case "2": ReadUser(userService); break;
+                    case "3": UpdateUser(userService); break;
+                    case "4": DeleteUser(userService); break;
+                    case "5": ListAllUsers(userService); break;
                     case "0": Console.WriteLine("Viszlát!"); Environment.Exit(0); break;
                     default: Console.WriteLine("Nincs ilyen menüpont!"); break;
                 }
             }
 
-
-            CreateUser(userService);
             Console.ReadKey();
 
             /*
