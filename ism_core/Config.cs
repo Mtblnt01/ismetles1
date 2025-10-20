@@ -17,7 +17,7 @@ namespace ism_core
         private static string GetSolutionRoot()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory; //exe helye
-            string solutionRoot = Directory.GetParent(baseDir).Parent.Parent.Parent.FullName;
+            string solutionRoot = Directory.GetParent(baseDir).Parent.Parent.Parent.Parent.FullName;
             return solutionRoot;
         }
     }

@@ -31,6 +31,67 @@ namespace ism_core
             return user;
         }
 
+        public void LoadUsersFromCsvFile(string filepath, char separator)
+        {
+            users.Clear();
+            try
+            {
+                using (StreamReader sr = new StreamReader(filepath))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if ((string.IsNullOrWhiteSpace(line)) || (line.StartsWith("#")))
+                        {
+                            continue;
+                        }
+
+                        try{
+                            User user = ParseFromCsv(line, separator);
+                            users.Add(user);
+                        }
+                        catch (Exception ex) 
+                        {
+                            Console.WriteLine("Hibás sor kihagyása: " + ex.Message);
+                            System.Diagnostics.Debug.WriteLine("Hibás sor kihagyva: " + ex.Message);
+                        }
+                    }
+                }
+
+            }
+            catch (IOException ioEx)
+            {
+                Console.WriteLine("Hiba a fájl olvasása során: "+ioEx.Message);
+                System.Diagnostics.Debug.WriteLine(ioEx.StackTrace);    
+            }
+        }
+
+        public void SaveUsersToCsvFile(string filepath, char separator)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(filepath, false, Encoding.UTF8))
+                {
+                    foreach (User user in users)
+                    {
+                        string line = $"{user.Id} {separator}" +
+                                      $"{user.Name} {separator}" +
+                                      $"{user.Password} {separator}" +
+                                      $"{user.Email} {separator}" +
+                                      $"{user.RegistrationDate.ToString("yyyy-MM-dd")} {separator}" +
+                                      $"{user.Level} {separator}";
+                        sw.WriteLine(line);
+                    }
+                }
+            }
+            catch (IOException ioEx)
+            {
+                Console.WriteLine("Hiba a fájl írása során: " + ioEx.Message);
+                System.Diagnostics.Debug.WriteLine("Hiba a fájl írása során: " + ioEx.Message);
+                throw;
+            }
+        }
+
         public User CreateUser(string name, string password, string email, string regDate, string levelStr)
         {
             int id = User.UserCount + 1;

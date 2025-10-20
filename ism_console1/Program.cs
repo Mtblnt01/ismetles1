@@ -24,7 +24,8 @@ namespace ism_console1
             Console.WriteLine("0: Kilépés");
         }
 
-        public static void CreateUser(UserService service) {
+        public static void CreateUser(UserService service)
+        {
             Console.Write("Kérek egy nevet: ");
             string name = Console.ReadLine();
             Console.Write("kérek egy jelszót: ");
@@ -43,7 +44,7 @@ namespace ism_console1
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine("Hiba"+ex.Message);
+                Console.WriteLine("Hiba" + ex.Message);
             }
         }
 
@@ -78,7 +79,7 @@ namespace ism_console1
 
         public static void ListAllUsers(UserService service)
         {
-            List<User> allUser = service.GetAllUsers();
+            List<User> allUser = service.ListAllUsers();
             if (allUser.Count == 0)
             {
                 Console.WriteLine("Nincs felhasználó");
@@ -89,75 +90,93 @@ namespace ism_console1
                 Console.WriteLine(user);
                 Console.WriteLine("---------------");
             }
+        }
 
+        public static void SaveAllUsers(UserService service)
+        {
+            try
+            {
+                service.SaveUsersToCsvFile(Config.CsvFullPath, separator);
+                Console.WriteLine("Felhasználók mentve a fájlba.");
+                System.Diagnostics.Debug.WriteLine("Felhasználók mentve a fájlba");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hiba a mentés során: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Hiba a mentés során: " + ex.Message);
+            }
+        }
 
-
-            static void Main(string[] args){
+        static void Main(string[] args)
+        {
             //UI metódusok
 
 
 
-            /*string csv = "2; Tibi; tibiakiraly; tibiakiraly@gmail.com; 2020-05-05; 2";
-            
-            try
-            {
+             /*string csv = "2; Tibi; tibiakiraly; tibiakiraly@gmail.com; 2020-05-05; 2";
+                   
+             try
+             {
                 User user = UserService.ParseFromCsv(csv, separator);
                 users.Add(user);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine("Hiba: " + ex.Message);
-                Environment.Exit(1);
-                throw;
-            }
-            */
+             }
+             catch (ArgumentException ex)
+             {
+                 Console.WriteLine("Hiba: " + ex.Message);
+                 Environment.Exit(1);
+                 throw;
+             }
+             */
 
-            while (true)
-            {
-                ShowMenu();
-                Console.Write("Kérem a menüpont számát: ");
-                string choice = Console.ReadKey().KeyChar.ToString();
-                Console.WriteLine("\n");
-                switch (choice)
+             userService.LoadUsersFromCsvFile(Config.CsvFullPath, separator);
+
+             while (true)
+             {
+                 ShowMenu();
+                 Console.Write("Kérem a menüpont számát: ");
+                 string choice = Console.ReadKey().KeyChar.ToString();
+                 Console.WriteLine("\n");
+                 switch (choice)
+                 {
+                     case "1": CreateUser(userService); break;
+                     case "2": ReadUser(userService); break;
+                     case "3": UpdateUser(userService); break;
+                     case "4": DeleteUser(userService); break;
+                     case "5": ListAllUsers(userService); break;
+                     case "6": SaveAllUsers(userService); break;
+                     case "0": Console.WriteLine("Viszlát!"); Environment.Exit(0); break;
+                     default: Console.WriteLine("Nincs ilyen menüpont!"); break;
+                 }
+             }
+
+             Console.ReadKey();
+
+                /*
+                User user = new User();
+
+                try
                 {
-                    case "1": CreateUser(userService); break;
-                    case "2": ReadUser(userService); break;
-                    case "3": UpdateUser(userService); break;
-                    case "4": DeleteUser(userService); break;
-                    case "5": ListAllUsers(userService); break;
-                    case "0": Console.WriteLine("Viszlát!"); Environment.Exit(0); break;
-                    default: Console.WriteLine("Nincs ilyen menüpont!"); break;
+                    user.Name = "tibi";
+                    user.Password = "jelszo";
+                    user.Email = "tibi.moriczref@hu";
+                    user.RegistrationDate = DateTime.Parse("2025-09-08");
+                    user.Level = 5;
                 }
-            }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine("Hiba: " + ex.Message);
+                    Environment.Exit(1);
+                }
+                Console.WriteLine(user);
 
-            Console.ReadKey();
-
-            /*
-            User user = new User();
-
-            try
-            {
-                user.Name = "tibi";
-                user.Password = "jelszo";
-                user.Email = "tibi.moriczref@hu";
-                user.RegistrationDate = DateTime.Parse("2025-09-08");
-                user.Level = 5;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine("Hiba: " + ex.Message);
-                Environment.Exit(1);
-            }
-            Console.WriteLine(user);
-
-            try   
-            {
-                User user1 = new User(2, "Tibi", "tibiakiraly", "tibiakiraly@gmail.com", "2020-05-05", 2);
-                Console.WriteLine(user1);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine("Hiba: " + ex.Message);
+                try   
+                {
+                    User user1 = new User(2, "Tibi", "tibiakiraly", "tibiakiraly@gmail.com", "2020-05-05", 2);
+                    Console.WriteLine(user1);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine("Hiba: " + ex.Message);
                 Environment.Exit(1);
             }
             */
