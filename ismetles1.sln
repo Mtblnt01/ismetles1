@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ism_console1", "ism_console1\ism_console1.csproj", "{892FC2E8-F7CA-4998-B01B-BF96C191B65C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ism_core", "ism_core\ism_core.csproj", "{D60769F2-2AF6-4458-A2B1-BACFB738234F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ism_core", "ism_core\ism_core.csproj", "{D60769F2-2AF6-4458-A2B1-BACFB738234F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ism_test", "ism_test\ism_test.csproj", "{5367A843-6E9F-4FC1-930A-EA838B17954D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D60769F2-2AF6-4458-A2B1-BACFB738234F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D60769F2-2AF6-4458-A2B1-BACFB738234F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D60769F2-2AF6-4458-A2B1-BACFB738234F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5367A843-6E9F-4FC1-930A-EA838B17954D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5367A843-6E9F-4FC1-930A-EA838B17954D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5367A843-6E9F-4FC1-930A-EA838B17954D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5367A843-6E9F-4FC1-930A-EA838B17954D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
