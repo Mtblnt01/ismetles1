@@ -91,7 +91,7 @@ namespace ism_test
         public void ParseFromCsv_ShouldReturnValidUser()
         {
             //Arrange
-            string csv = "Teszt Elek; jelszo123; teszt@example.com; 2025-11-10; 3";
+            string csv = "1; Teszt Elek; jelszo123; teszt@example.com; 2025-11-10 11:24:00; 3";
             //Act
             User user = UserService.ParseFromCsv(csv, ';');
             //Assert
